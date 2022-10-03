@@ -1,6 +1,5 @@
 
 ("OGR.DGO"
-  ("tpage-1119.go" "tpage-1119")
   ("blocking-plane.o" "blocking-plane")
   ("firecanyon-obs.o" "firecanyon-obs")
   ("ogre-part.o" "ogre-part")

@@ -1,7 +1,5 @@
 
 ("FIC.DGO"
-
-  ("tpage-1119.go" "tpage-1119")
   ("blocking-plane.o" "blocking-plane")
   ("firecanyon-part.o" "firecanyon-part")
   ("assistant-firecanyon.o" "assistant-firecanyon")

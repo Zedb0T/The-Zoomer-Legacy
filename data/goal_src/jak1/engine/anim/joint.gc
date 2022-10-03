@@ -478,6 +478,7 @@
     )
   (none)
   )
+
 (defmethod asize-of art-mesh-geo ((obj art-mesh-geo))
   (the-as int (+ (-> art size) (* (-> obj length) 4)))
   )

@@ -1,6 +1,6 @@
 
 ("FIC.DGO"
-
+  ("eichar-racer+0-ag.go" "eichar-racer+0")
   ("tpage-1119.go" "tpage-1119")
   ("blocking-plane.o" "blocking-plane")
   ("firecanyon-part.o" "firecanyon-part")
@@ -16,6 +16,7 @@
   ("crate-darkeco-cluster-ag.go" "crate-darkeco-cluster")
   ("ecovalve-ag.go" "ecovalve")
   ("ef-plane-ag.go" "ef-plane")
+  ("racer-ag.go" "racer")
   ("spike-ag.go" "spike")
   ("firecanyon-vis.go" "firecanyon-vis")
   )

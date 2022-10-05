@@ -241,7 +241,7 @@
 (defstate double-lurker-top-on-shoulders (double-lurker-top)
   :event (behavior ((arg0 process) (arg1 int) (arg2 symbol) (arg3 event-message-block))
     (case arg2
-      (('trigger)
+      (('trigger 'touch 'attack 'ridden)
        (let ((v1-1 (-> self fall-dest))
              (a0-4 (-> (the-as vector (-> arg3 param 0)) quad))
              )
@@ -519,11 +519,7 @@
 (defbehavior double-lurker-default-event-handler double-lurker ((arg0 process) (arg1 int) (arg2 symbol) (arg3 event-message-block))
   (local-vars (v0-0 object))
   (case arg2
-    (('touch)
-     (set! (-> self touch-time) (-> *display* base-frame-counter))
-     (dummy-44 self arg0 arg3)
-     )
-    (('attack)
+    (('attack 'touch 'ridden)
      (when (= (-> arg0 type) target)
        (nav-enemy-set-hit-from-direction arg0)
        (cond

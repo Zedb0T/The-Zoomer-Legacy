@@ -98,33 +98,32 @@
   )
 
 (defun movie? ()
-(set! flutflut? (aif *target* (case (-> it next-state name) (
-                                      (
-                                       'target-racing
-                                       'target-racing-bounce
-                                       'target-racing-death
-                                       'target-racing-falling
-                                       'target-racing-grab
-                                       'target-racing-hit
-                                       'target-racing-jump
-                                       'target-racing-smack
-                                       'target-racing-start
-                                       ;; not Racer, but we don't need to force flutflut in these cases
-                                       'target-periscope
-                                       'target-falling
-                                       'target-clone-anim
-                                       'target-play-anim
-                                       'target-billy-game
-                                       'target-look-around
-                                       'target-fishing
-                                       ;; launcher crap
-                                       'target-launch
-                                       'target-high-jump
-                                       'target-duck-high-jump
-                                       'target-duck-high-jump-jump
-                                       'target-hit-ground) #t))))
+;; (set! flutflut? (aif *target* (case (-> it next-state name) (
+;;                                       (
+;;                                        'target-racing
+;;                                        'target-racing-bounce
+;;                                        'target-racing-death
+;;                                        'target-racing-falling
+;;                                        'target-racing-grab
+;;                                        'target-racing-hit
+;;                                        'target-racing-jump
+;;                                        'target-racing-smack
+;;                                        'target-racing-start
+;;                                        ;; not Racer, but we don't need to force flutflut in these cases
+;;                                        'target-periscope
+;;                                        'target-falling
+;;                                        'target-clone-anim
+;;                                        'target-play-anim
+;;                                        'target-billy-game
+;;                                        'target-look-around
+;;                                        'target-fishing
+;;                                        ;; launcher crap
+;;                                        'target-launch
+;;                                        'target-high-jump
+;;                                        'target-duck-high-jump
+;;                                        'target-duck-high-jump-jump
+;;                                        'target-hit-ground) #t))))
 
-(if (and (not flutflut?) (not (and (logtest? (-> *kernel-context* prevent-from-run) (process-mask movie)) (or (= (-> *target* current-level name) 'jungle)(= (-> *target* current-level name) 'village1) )))) (send-event *target* 'change-mode 'racing #f))
   "Are we in a movie?"
   (logtest? (-> *kernel-context* prevent-from-run) (process-mask movie))
   )
@@ -628,7 +627,7 @@
   "This is in progress..."
 
   ;; increase our stack size.
-  (stack-size-set! (-> self main-thread) 512)
+  (stack-size-set! (-> self main-thread) 1024)
 
   (let ((disp *display*))
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -651,6 +650,66 @@
     (while *run*
       ;; start immediately after all process updates finish.
       (profiler-instant-event "display-loop-top")
+
+      ;; pre-activate blue eco platform in geyser
+      (when (process-by-name "plat-eco-62" *active-pool*)
+        (send-event (process-by-name "plat-eco-62" *active-pool*) 'wake)
+        )
+      
+      ;; pre-activate blue eco platform in spider cave
+      (when (process-by-name "plat-eco-63" *active-pool*)
+        (send-event (process-by-name "plat-eco-63" *active-pool*) 'wake)
+        )
+
+      ;; remove water blocking dark crystal in dark cave
+      (when (process-by-name "cave-water-3" *active-pool*)
+        (deactivate (process-by-name "cave-water-3" *active-pool*))
+        )
+
+      ;; pre-activate log elevator in snowy
+      (when (process-by-name "snow-log-1" *active-pool*)
+        (send-event (process-by-name "snow-log-1" *active-pool*) 'trigger)
+        )
+        
+      ;; reset collision spheres (they are shrunk near warp gates and gondola so zoomer fits)
+      (let ((prims (the-as collide-shape-prim-group (-> *target* control root-prim))))
+          (dotimes (idx (-> prims num-prims))
+            (set! (-> prims prim idx local-sphere w) 6553.6)
+            )
+          )
+
+      (case (-> *target* next-state name)
+        (('target-racing
+          'target-racing-bounce
+          'target-racing-death
+          'target-racing-falling
+          'target-racing-grab
+          'target-racing-hit
+          'target-racing-jump
+          'target-racing-smack
+          'target-racing-start
+          'target-racing-get-on
+          ;; not zoomer, but we don't need to force zoomer in these cases
+          'target-periscope
+          'target-falling
+          'target-clone-anim
+          'target-play-anim
+          'target-billy-game
+          'target-look-around
+          'target-fishing
+          ;; launcher crap
+          'target-launch
+          'target-high-jump
+          'target-duck-high-jump
+          'target-duck-high-jump-jump
+          'target-hit-ground
+          )
+          )
+        (else
+          (if (not (logtest? (-> *kernel-context* prevent-from-run) (process-mask movie)))
+            (send-event *target* 'change-mode 'racing #f))
+          )
+        )
 
       ;; drawing effects to be used in foreground drawing.
       (with-profiler "foreground-effects"

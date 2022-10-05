@@ -224,9 +224,9 @@
       (vector-reset! (-> self orbit-rotv))
       (loop
         (let ((f30-0 (-> self parent-process 0 open-level)))
-          (if (>= 0.0 f30-0)
-              (go blue-eco-charger-orb-idle)
-              )
+          ;; (if (>= 0.0 f30-0)
+          ;;     (go blue-eco-charger-orb-idle)
+          ;;     )
           (if (zero? (rand-vu-int-count 30))
               (dummy-20 self f30-0)
               )

@@ -1,5 +1,6 @@
 
 ("LAV.DGO"
+  ("eichar-racer+0-ag.go" "eichar-racer+0")
   ("tpage-1119.go" "tpage-1119")
   ("blocking-plane.o" "blocking-plane")
   ("lavatube-obs.o" "lavatube-obs")
@@ -27,6 +28,7 @@
   ("lavafallsewerb-ag.go" "lavafallsewerb")
   ("lavashortcut-ag.go" "lavashortcut")
   ("lavayellowtarp-ag.go" "lavayellowtarp")
+  ("racer-ag.go" "racer")
   ("water-anim-lavatube-ag.go" "water-anim-lavatube")
   ("lavatube-vis.go" "lavatube-vis")
   )

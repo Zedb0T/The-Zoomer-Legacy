@@ -1,5 +1,6 @@
 
 ("OGR.DGO"
+  ("eichar-racer+0-ag.go" "eichar-racer+0")
   ("tpage-1119.go" "tpage-1119")
   ("blocking-plane.o" "blocking-plane")
   ("firecanyon-obs.o" "firecanyon-obs")
@@ -23,6 +24,7 @@
   ("ogreboss-ag.go" "ogreboss")
   ("ogrecam-ag.go" "ogrecam")
   ("plunger-lurker-ag.go" "plunger-lurker")
+  ("racer-ag.go" "racer")
   ("shortcut-boulder-ag.go" "shortcut-boulder")
   ("tntbarrel-ag.go" "tntbarrel")
   ("water-anim-ogre-ag.go" "water-anim-ogre")

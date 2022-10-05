@@ -272,6 +272,7 @@
   (none)
   )
 
+(define-extern sculptor type)
 (defbehavior process-taskable-anim-loop process-taskable ()
   (when (!= (ja-group) (get-art-elem self))
     (ja-channel-push! 1 (seconds 0.2))
@@ -1025,6 +1026,7 @@
   )
 
 (defmethod dummy-40 process-taskable ((obj process-taskable) (arg0 object) (arg1 skeleton-group) (arg2 int) (arg3 int) (arg4 vector) (arg5 int))
+  (format 0 "dummy-40 ~A ~%" (-> obj type))
   (stack-size-set! (-> obj main-thread) 512)
   (initialize-collision obj arg2 arg4)
   (process-drawable-from-entity! obj (the-as entity-actor arg0))

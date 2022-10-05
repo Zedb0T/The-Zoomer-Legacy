@@ -82,6 +82,7 @@
               :alignv 1.0
               :slope-up-traction 1.0
               :align-speed 1.0
+              :flags (surface-flags allow-look-around)
               )
             )
       )
@@ -1456,6 +1457,8 @@
   (none)
   )
 
-
+(defun target-hopping? ((obj target))
+  (-> obj racer hop?)
+  )
 
 
